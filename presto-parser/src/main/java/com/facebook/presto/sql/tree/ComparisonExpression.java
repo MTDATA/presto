@@ -43,8 +43,8 @@ public class ComparisonExpression
     }
 
     private final Type type;
-    private final Expression left;
-    private final Expression right;
+    private Expression left;
+    private Expression right;
 
     public ComparisonExpression(Type type, Expression left, Expression right)
     {
@@ -70,6 +70,16 @@ public class ComparisonExpression
     public Expression getRight()
     {
         return right;
+    }
+
+    public void setLeft(Expression left) {
+        Preconditions.checkNotNull(left, "left is null");
+        this.left = left;
+    }
+
+    public void setRight(Expression right) {
+        Preconditions.checkNotNull(right, "right is null");
+        this.right = right;
     }
 
     @Override

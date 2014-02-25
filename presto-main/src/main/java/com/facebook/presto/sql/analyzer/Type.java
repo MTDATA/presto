@@ -103,4 +103,26 @@ public enum Type
             }
         };
     }
+
+    public static int cost(Type type)
+    {
+        switch (type) {
+            case NULL:
+                return 0;
+            case BOOLEAN:
+                return 1;
+            case BIGINT:
+                return 2;
+            case DOUBLE:
+                return 3;
+            case VARCHAR:
+                return 4;
+        }
+        throw new IllegalArgumentException("Can't find Type: " + type);
+    }
+
+    public int cost()
+    {
+        return cost(this);
+    }
 }

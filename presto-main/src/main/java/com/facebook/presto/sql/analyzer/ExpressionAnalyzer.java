@@ -203,10 +203,18 @@ public class ExpressionAnalyzer
             Type left = process(node.getLeft(), context);
             Type right = process(node.getRight(), context);
 
-            if (left != right && !(Type.isNumeric(left) && Type.isNumeric(right))) {
-                throw new SemanticException(TYPE_MISMATCH, node, "Types are not comparable with '%s': %s vs %s", node.getType().getValue(), left, right);
+            if (left != right) {
+                boolean castLeft = !(node.getLeft() instanceof QualifiedNameReference) || node.getRight() instanceof QualifiedNameReference && left.cost() <= right.cost();
+                if (castLeft) {
+                    Cast cast = new Cast(node.getLeft(), right.getName());
+                    node.setLeft(cast);
+                    process(cast, context);
+                } else {
+                    Cast cast = new Cast(node.getRight(), left.getName());
+                    node.setRight(cast);
+                    process(cast, context);
+                }
             }
-
             subExpressionTypes.put(node, Type.BOOLEAN);
             return Type.BOOLEAN;
         }
