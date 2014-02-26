@@ -66,11 +66,12 @@ public abstract class AbstractTestHiveClientS3
         HiveCluster hiveCluster = new TestingHiveCluster(hiveClientConfig, host, port);
         ExecutorService executor = newCachedThreadPool(daemonThreadsNamed("hive-s3-%s"));
 
+        HiveConnectorId hiveConnectorId = new HiveConnectorId("hive-test");
         client = new HiveClient(
-                new HiveConnectorId("hive-test"),
+                hiveConnectorId,
                 hiveClientConfig,
                 new CachingHiveMetastore(hiveCluster, executor, hiveClientConfig),
-                new HdfsEnvironment(new HdfsConfiguration(hiveClientConfig)),
+                new HdfsEnvironment(new HdfsConfiguration(hiveClientConfig, hiveConnectorId)),
                 sameThreadExecutor());
     }
 
