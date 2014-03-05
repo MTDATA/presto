@@ -21,6 +21,7 @@ import com.facebook.presto.operator.scalar.MathFunctions;
 import com.facebook.presto.operator.scalar.RegexpFunctions;
 import com.facebook.presto.operator.scalar.ScalarFunction;
 import com.facebook.presto.operator.scalar.StringFunctions;
+import com.facebook.presto.operator.scalar.UDFFunctions;
 import com.facebook.presto.operator.scalar.UnixTimeFunctions;
 import com.facebook.presto.operator.scalar.UrlFunctions;
 import com.facebook.presto.operator.window.CumulativeDistributionFunction;
@@ -172,6 +173,7 @@ public class FunctionRegistry
                 .scalar(UnixTimeFunctions.class)
                 .scalar(JsonFunctions.class)
                 .scalar(ColorFunctions.class)
+                .scalar(UDFFunctions.class)
                 .build();
 
         addFunctions(functions);
