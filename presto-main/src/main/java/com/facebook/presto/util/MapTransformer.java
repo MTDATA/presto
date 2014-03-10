@@ -20,6 +20,7 @@ import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MapTransformer<K, V>
@@ -58,7 +59,11 @@ public class MapTransformer<K, V>
 
     public MapTransformer<V, K> inverse()
     {
-        return new MapTransformer<>(ImmutableBiMap.copyOf(map).inverse());
+        HashMap<V, K> reverseMap = new HashMap<>();
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            reverseMap.put(entry.getValue(), entry.getKey());
+        }
+        return new MapTransformer<>(ImmutableMap.copyOf(reverseMap));
     }
 
     public BiMap<K, V> biMap()
